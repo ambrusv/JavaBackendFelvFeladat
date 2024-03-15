@@ -1,4 +1,4 @@
-package JavaBackendFelvFeladat;
+package javabackendfelvfeladat;
 
 import org.modelmapper.ModelMapper;
 import org.modelmapper.convention.MatchingStrategies;

@@ -1,4 +1,4 @@
-package JavaBackendFelvFeladat.repository;
+package javabackendfelvfeladat.repository;
 
 import org.springframework.stereotype.Repository;
 

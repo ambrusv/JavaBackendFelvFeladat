@@ -1,6 +1,6 @@
-package JavaBackendFelvFeladat.service;
+package javabackendfelvfeladat.service;
 
-import JavaBackendFelvFeladat.repository.FileRepository;
+import javabackendfelvfeladat.repository.FileRepository;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.modelmapper.ModelMapper;

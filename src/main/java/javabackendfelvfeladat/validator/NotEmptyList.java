@@ -1,4 +1,4 @@
-package JavaBackendFelvFeladat.validator;
+package javabackendfelvfeladat.validator;
 
 import javax.validation.Constraint;
 import javax.validation.Payload;

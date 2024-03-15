@@ -1,7 +1,7 @@
-package JavaBackendFelvFeladat.dto;
+package javabackendfelvfeladat.dto;
 
-import JavaBackendFelvFeladat.validator.Image;
-import JavaBackendFelvFeladat.validator.NotEmptyList;
+import javabackendfelvfeladat.validator.Image;
+import javabackendfelvfeladat.validator.NotEmptyList;
 import lombok.Data;
 import org.springframework.web.multipart.MultipartFile;
 

@@ -1,6 +1,6 @@
-package JavaBackendFelvFeladat.controller;
+package javabackendfelvfeladat.controller;
 
-import JavaBackendFelvFeladat.service.FileService;
+import javabackendfelvfeladat.service.FileService;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.bind.annotation.RequestMapping;

@@ -1,6 +1,6 @@
-package JavaBackendFelvFeladat.validator;
+package javabackendfelvfeladat.validator;
 
-import JavaBackendFelvFeladat.exception.NoImageException;
+import javabackendfelvfeladat.exception.NoImageException;
 import org.apache.tika.Tika;
 import org.springframework.web.multipart.MultipartFile;
 

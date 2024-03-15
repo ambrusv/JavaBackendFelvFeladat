@@ -1,6 +1,6 @@
-package JavaBackendFelvFeladat.validator;
+package javabackendfelvfeladat.validator;
 
-import JavaBackendFelvFeladat.exception.FilesMissingException;
+import javabackendfelvfeladat.exception.FilesMissingException;
 import org.springframework.web.multipart.MultipartFile;
 
 import javax.validation.ConstraintValidator;

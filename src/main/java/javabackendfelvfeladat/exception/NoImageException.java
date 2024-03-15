@@ -1,4 +1,4 @@
-package JavaBackendFelvFeladat.exception;
+package javabackendfelvfeladat.exception;
 
 import lombok.Getter;
 
