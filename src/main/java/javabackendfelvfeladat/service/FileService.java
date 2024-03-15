@@ -3,9 +3,11 @@ package javabackendfelvfeladat.service;
 import javabackendfelvfeladat.domain.FileEntity;
 import javabackendfelvfeladat.dto.FileUploadDTO;
 import javabackendfelvfeladat.exception.ImageNotFoundException;
+import javabackendfelvfeladat.exception.ImageZipCreationException;
 import javabackendfelvfeladat.repository.FileRepository;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.apache.commons.io.IOUtils;
 import org.springframework.core.io.InputStreamResource;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.MediaType;
@@ -15,9 +17,12 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.ByteArrayInputStream;
+import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.util.List;
 import java.util.Optional;
+import java.util.zip.ZipEntry;
+import java.util.zip.ZipOutputStream;
 
 @Service
 @Transactional
@@ -65,6 +70,32 @@ public class FileService {
                 .headers(headers)
                 .contentLength(fileData.length)
                 .body(resource);
+    }
+
+    public byte[] createZipFile() {
+        try {
+            List<FileEntity> images = getAllImages();
+            ByteArrayOutputStream baos = new ByteArrayOutputStream();
+            ZipOutputStream zos = new ZipOutputStream(baos);
+
+            for (FileEntity image : images) {
+                ZipEntry entry = new ZipEntry(image.getFileName());
+                zos.putNextEntry(entry);
+                IOUtils.copy(new ByteArrayInputStream(image.getData()), zos);
+                zos.closeEntry();
+            }
+
+            zos.close();
+
+            return baos.toByteArray();
+        } catch (Exception e) {
+            log.error("Failed to create ZIP file for images", e);
+            throw new ImageZipCreationException("Failed to create ZIP file for images", e);
+        }
+    }
+
+    private List<FileEntity> getAllImages() {
+        return fileRepository.findAll();
     }
 
 }

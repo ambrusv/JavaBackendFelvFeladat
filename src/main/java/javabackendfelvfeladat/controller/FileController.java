@@ -6,7 +6,9 @@ import javabackendfelvfeladat.service.FileService;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.core.io.InputStreamResource;
+import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -46,6 +48,22 @@ public class FileController {
             return ResponseEntity.notFound().build();
         } catch (Exception e) {
             log.error("Failed to download image", e);
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
+        }
+    }
+
+    @GetMapping("/download/all")
+    public ResponseEntity<byte[]> downloadAllImages() {
+        try {
+            byte[] zipData = fileService.createZipFile();
+
+            HttpHeaders headers = new HttpHeaders();
+            headers.setContentType(MediaType.APPLICATION_OCTET_STREAM);
+            headers.setContentDispositionFormData("attachment", "images.zip");
+
+            return ResponseEntity.ok().headers(headers).body(zipData);
+        } catch (Exception e) {
+            log.error("Failed to download images as ZIP", e);
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
         }
     }
