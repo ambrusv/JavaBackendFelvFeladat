@@ -31,7 +31,6 @@ public class FileService {
                 FileEntity fileEntity = new FileEntity();
                 fileEntity.setFileName(image.getOriginalFilename());
                 fileEntity.setData(image.getBytes());
-                fileEntity.setBase64Data(Base64.getEncoder().encodeToString(image.getBytes()));
 
                 fileRepository.save(fileEntity);
             } catch (IOException e) {

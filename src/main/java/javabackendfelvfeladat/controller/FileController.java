@@ -27,6 +27,7 @@ public class FileController {
             fileService.uploadImage(postFile);
             return ResponseEntity.status(HttpStatus.CREATED).body("Image uploaded successfully");
         } catch (Exception e) {
+            log.error("Failed to upload Image", e);
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Failed to upload Image: " + e.getMessage());
         }
     }
