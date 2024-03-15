@@ -1,5 +1,6 @@
 package javabackendfelvfeladat.domain;
 
+import lombok.Getter;
 import lombok.Setter;
 
 import javax.persistence.*;
@@ -7,6 +8,7 @@ import javax.persistence.*;
 @Entity
 @Table(name = "images")
 @Setter
+@Getter
 public class FileEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

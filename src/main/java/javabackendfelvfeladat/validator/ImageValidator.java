@@ -1,6 +1,6 @@
 package javabackendfelvfeladat.validator;
 
-import javabackendfelvfeladat.exception.NoImageException;
+import javabackendfelvfeladat.exception.NotImageException;
 import org.apache.tika.Tika;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -27,10 +27,10 @@ public class ImageValidator implements ConstraintValidator<Image, List<Multipart
                 try {
                     String mimeType = tika.detect(file.getInputStream());
                     if (Arrays.stream(ALLOWED_MIME_TYPES).noneMatch(type -> type.equals(mimeType))) {
-                        throw new NoImageException("This media type not allowed here: " + mimeType, "Media type");
+                        throw new NotImageException("This media type not allowed here: " + mimeType, "Media type");
                     }
                 } catch (IOException e) {
-                    throw new NoImageException("This media type not allowed here", "Media type");
+                    throw new NotImageException("This media type not allowed here", "Media type");
                 }
             });
         }

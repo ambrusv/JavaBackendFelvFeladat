@@ -3,13 +3,14 @@ package javabackendfelvfeladat.exception;
 import lombok.Getter;
 
 @Getter
-public class FilesMissingException extends RuntimeException{
+public class NotImageException extends RuntimeException {
 
     private final String errorMessage;
     private final String field;
 
-    public FilesMissingException(String errorMessage, String field) {
+    public NotImageException(String errorMessage, String field) {
         this.errorMessage = errorMessage;
         this.field = field;
     }
 }
+
