@@ -16,6 +16,8 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
 
+import javax.imageio.ImageIO;
+import java.awt.image.BufferedImage;
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
@@ -40,6 +42,8 @@ public class FileService {
                 FileEntity fileEntity = new FileEntity();
                 fileEntity.setFileName(image.getOriginalFilename());
                 fileEntity.setData(image.getBytes());
+                fileEntity.setWidth(calculateWidth(fileEntity));
+                fileEntity.setHeight(calculateHeight(fileEntity));
 
                 fileRepository.save(fileEntity);
             } catch (IOException e) {
@@ -93,7 +97,14 @@ public class FileService {
             throw new ImageZipCreationException("Failed to create ZIP file for images", e);
         }
     }
-
+    private int calculateWidth(FileEntity fileEntity) throws IOException {
+        BufferedImage image = ImageIO.read(new ByteArrayInputStream(fileEntity.getData()));
+        return image.getWidth();
+    }
+    private int calculateHeight(FileEntity fileEntity) throws IOException {
+        BufferedImage image = ImageIO.read(new ByteArrayInputStream(fileEntity.getData()));
+        return image.getHeight();
+    }
     private List<FileEntity> getAllImages() {
         return fileRepository.findAll();
     }
