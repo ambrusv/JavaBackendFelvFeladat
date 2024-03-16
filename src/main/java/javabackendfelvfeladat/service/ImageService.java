@@ -12,7 +12,7 @@ import java.io.IOException;
 @Service
 public class ImageService {
 
-    public byte[] resizeImage(MultipartFile file, int maxWidth, int maxHeight) throws IOException {
+    public ResizeResultService resizeImage(MultipartFile file, int maxWidth, int maxHeight) throws IOException {
         BufferedImage originalImage = ImageIO.read(file.getInputStream());
 
         int newWidth;
@@ -32,6 +32,7 @@ public class ImageService {
 
         ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
         ImageIO.write(resizedImage, "jpg", outputStream);
-        return outputStream.toByteArray();
+
+        return new ResizeResultService(outputStream.toByteArray(), newWidth, newHeight);
     }
 }

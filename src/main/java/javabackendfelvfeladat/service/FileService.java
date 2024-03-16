@@ -47,16 +47,15 @@ public class FileService {
                 fileEntity.setHeight(calculateHeight(fileEntity));
 
                 if (fileEntity.getWidth() > MAX_WIDTH || fileEntity.getHeight() > MAX_HEIGHT) {
-                    byte[] resizedImageData = imageService.resizeImage(image, 5000, 5000);
-                    fileEntity.setData(resizedImageData);
-
-                    fileEntity.setWidth(5000);
-                    fileEntity.setHeight(5000);
+                    ResizeResultService resizeResult = imageService.resizeImage(image, 5000, 5000);
+                    fileEntity.setData(resizeResult.getResizedImageData());
+                    fileEntity.setWidth(resizeResult.getWidth());
+                    fileEntity.setHeight(resizeResult.getHeight());
                 }
 
                 fileRepository.save(fileEntity);
             } catch (IOException e) {
-                log.error("Failed to read image data: {}", e.getMessage());
+                log.error("Failed to read image");
             }
         }
     }
