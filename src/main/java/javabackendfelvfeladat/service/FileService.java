@@ -31,9 +31,10 @@ import java.util.zip.ZipOutputStream;
 @AllArgsConstructor
 @Slf4j
 public class FileService {
-
+    private static final int MAX_WIDTH = 5000;
+    private static final int MAX_HEIGHT = 5000;
     private final FileRepository fileRepository;
-
+    private ImageService imageService;
     public void uploadImage(FileUploadDTO postFile) {
         List<MultipartFile> images = postFile.getImages();
 
@@ -44,6 +45,14 @@ public class FileService {
                 fileEntity.setData(image.getBytes());
                 fileEntity.setWidth(calculateWidth(fileEntity));
                 fileEntity.setHeight(calculateHeight(fileEntity));
+
+                if (fileEntity.getWidth() > MAX_WIDTH || fileEntity.getHeight() > MAX_HEIGHT) {
+                    byte[] resizedImageData = imageService.resizeImage(image, 5000, 5000);
+                    fileEntity.setData(resizedImageData);
+
+                    fileEntity.setWidth(5000);
+                    fileEntity.setHeight(5000);
+                }
 
                 fileRepository.save(fileEntity);
             } catch (IOException e) {
