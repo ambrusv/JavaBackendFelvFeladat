@@ -8,6 +8,6 @@ import java.util.List;
 
 @Data
 public class FileUploadDTO {
-    @Image(message = "Only JPG/PNG accepted")
+    @Image(message = "Only JPG/PNG/JPEG accepted")
     private List<MultipartFile> images;
 }
